@@ -53,6 +53,7 @@ namespace UserStore.BLL.Services
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDTO)
         {
             ClaimsIdentity claim = null;
+            
             //finding user
             ApplicationUser user = await Database.UserManager.FindAsync(userDTO.Email, userDTO.Password);
             if (user != null)
