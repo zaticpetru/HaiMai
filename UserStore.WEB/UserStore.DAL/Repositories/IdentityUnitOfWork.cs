@@ -18,10 +18,10 @@ namespace UserStore.DAL.Repositories
 
         public IdentityUnitOfWork(string connectionString)
         {
-            db = new ApplicationContext(connectionString);
-            userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
-            roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
-            clientManager = new ClientManager(db);
+            this.db = new ApplicationContext(connectionString);
+            this.userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(this.db));
+            this.roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(this.db));
+            this.clientManager = new ClientManager(this.db);
         }
 
         public ApplicationUserManager UserManager

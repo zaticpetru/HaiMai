@@ -11,7 +11,6 @@ namespace UserStore.DAL.EF
     {
         protected override void Seed(ApplicationContext db)
         {
-            
             db.SaveChanges();
         }
     }
