@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -83,7 +84,12 @@ namespace UserStore.BLL.Services
 
         public IEnumerable<UserDTO> GetUsers()
         {
-            var users =  Database.UserManager.Users;
+            var users = Database.UserManager.Users
+                .Include(x => x.ClientProfile)
+                .Include(x => x.Roles);
+
+            var test = users.FirstOrDefault();
+            
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, UserDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserDTO>>(users);
         }

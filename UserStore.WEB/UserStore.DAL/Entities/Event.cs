@@ -10,6 +10,7 @@ namespace UserStore.DAL.Entities
         public string Location { get; set; }
         public DateTime Start { get; set; }
         public DateTime Finish { get; set; }
+        public int AdminId { get; set; }
         public ClientProfile Admin { get; set; }
         public ICollection<ClientProfile> Moderators { get; set; }
         public ICollection<Report> Reports { get; set; }
