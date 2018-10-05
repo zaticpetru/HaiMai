@@ -9,5 +9,9 @@ namespace UserStore.BLL.Services
         {
             return new UserService(new IdentityUnitOfWork(connection));
         }
+        public IEventService CreateEventService(string connection)
+        {
+            return new EventService(new IdentityUnitOfWork(connection));
+        }
     }
 }

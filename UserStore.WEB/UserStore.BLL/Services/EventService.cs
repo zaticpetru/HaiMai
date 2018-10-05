@@ -1,7 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using UserStore.BLL.DTO;
+using UserStore.BLL.Infrastructure;
 using UserStore.BLL.Interfaces;
+using UserStore.DAL.Entities;
 using UserStore.DAL.Interfaces;
 
 namespace UserStore.BLL.Services
@@ -15,33 +18,89 @@ namespace UserStore.BLL.Services
         }
         public void MakeEvent(EventDTO eventDTO)
         {
-
+            Event item = new Event
+            {
+                Id = eventDTO.Id,
+                Admin = eventDTO.Admin,
+                Finish = eventDTO.Finish,
+                Location = eventDTO.Location,
+                Moderators = eventDTO.Moderators,
+                Name = eventDTO.Name,
+                Reports = eventDTO.Reports,
+                Start = eventDTO.Start
+            };
+            Database.Events.Create(item);
+            Database.SaveAsync();
         }
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Database.Dispose();
         }
 
-        public UserDTO GetAdmin()
+        public UserDTO GetAdmin(int? EventId)
         {
-            throw new NotImplementedException();
+            if (EventId == null)
+                throw new ValidationException("Event id is not setted", "");
+            var Event = Database.Events.Get(EventId.Value);
+            if (Event == null)
+                throw new ValidationException("Event not found", "");
+            UserDTO admin = new UserDTO
+            {
+                Id = Event.Admin.Id,
+                Address = Event.Admin.Address,
+                Email = Event.Admin.ApplicationUser.Email,
+                Name = Event.Admin.Name,
+                UserName = Event.Admin.ApplicationUser.UserName
+            };
+            return admin;
         }
 
         public EventDTO GetEvent(int? id)
         {
-            throw new NotImplementedException();
+            if (id == null)
+                throw new ValidationException("Event id is not setted", "");
+            var Event = Database.Events.Get(id.Value);
+            if (Event == null)
+                throw new ValidationException("Event not found", "");
+            return new EventDTO
+            {
+                Admin = Event.Admin,
+                Finish = Event.Finish,
+                Id = Event.Id,
+                Location = Event.Location,
+                Moderators = Event.Moderators,
+                Name = Event.Name,
+                Reports = Event.Reports,
+                Start = Event.Start
+            };
         }
 
-        public IEnumerable<UserDTO> GetModerators()
+        public IEnumerable<UserDTO> GetModerators(int? EventId)
         {
-            throw new NotImplementedException();
+            if (EventId == null)
+                throw new ValidationException("Event id is not setted", "");
+            var Event = Database.Events.Get(EventId.Value);
+            if (Event == null)
+                throw new ValidationException("Event not found", "");
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ClientProfile,UserDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<ClientProfile>, List<UserDTO>>(Event.Moderators);
         }
 
-        public IEnumerable<ReportDTO> GetReports()
+        public IEnumerable<ReportDTO> GetReports(int? EventId)
         {
-            throw new NotImplementedException();
+            if (EventId == null)
+                throw new ValidationException("Event id is not setted", "");
+            var Event = Database.Events.Get(EventId.Value);
+            if (Event == null)
+                throw new ValidationException("Event not found", "");
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Report, ReportDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<Report>, List<ReportDTO>>(Event.Reports);
         }
 
-        
+        public IEnumerable<EventDTO> GetEvents()
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Event, EventDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<Event>, List<EventDTO>>(Database.Events.GetAll());
+        }
     }
 }
