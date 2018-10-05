@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using UserStore.BLL.DTO;
@@ -27,11 +29,11 @@ namespace UserStore.BLL.Services
                     Email = userDTO.Email,
                     UserName = userDTO.Email
                 };
-                //var result = await Database.UserManager.CreateAsync(user, userDTO.Password);
-                //if (result.Errors.Count() > 0)
-                //    return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
+                var result = await Database.UserManager.CreateAsync(user, userDTO.Password);
+                if (result.Errors.Count() > 0)
+                    return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
                 //adding role
-                await Database.UserManager.CreateAsync(user, userDTO.Password);
+                //await Database.UserManager.CreateAsync(user, userDTO.Password);
                 await Database.UserManager.AddToRoleAsync(user.Id, userDTO.Role);
                 //creating client profile
                 ClientProfile clientProfile = new ClientProfile
@@ -77,6 +79,13 @@ namespace UserStore.BLL.Services
         public void Dispose()
         {
             Database.Dispose();
+        }
+
+        public IEnumerable<UserDTO> GetUsers()
+        {
+            var users =  Database.UserManager.Users;
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, UserDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserDTO>>(users);
         }
     }
 }

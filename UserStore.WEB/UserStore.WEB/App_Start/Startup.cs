@@ -15,6 +15,8 @@ namespace UserStore.WEB.App_Start
         public void Configuration(IAppBuilder app)
         {
             app.CreatePerOwinContext<IUserService>(CreateUserService);
+            app.CreatePerOwinContext<IEventService>(CreateEventService);
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -25,6 +27,10 @@ namespace UserStore.WEB.App_Start
         private IUserService CreateUserService()
         {
             return serviceCreator.CreateUserService("DefaultConnection");
+        }
+        private IEventService CreateEventService()
+        {
+            return serviceCreator.CreateEventService("DefaultConnection");
         }
     }
 }
