@@ -15,7 +15,7 @@ namespace UserStore.BLL.Services
         }
         public void MakeEvent(EventDTO eventDTO)
         {
-               Database.ClientManager.
+
         }
         public void Dispose()
         {

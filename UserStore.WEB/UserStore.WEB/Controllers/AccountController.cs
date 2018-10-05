@@ -78,7 +78,7 @@ namespace UserStore.WEB.Controllers
             await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
-                UserDTO userDTO = new UserDTO
+                var userDTO = new UserDTO
                 {
                     Email = model.Email,
                     Password = model.Password,

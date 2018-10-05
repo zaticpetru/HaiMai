@@ -14,7 +14,10 @@ namespace UserStore.DAL.EF
         {
             Database.SetInitializer<ApplicationContext>(new ContextInit());
         }
-        public ApplicationContext(string connectionString) : base(connectionString) { }
+        public ApplicationContext(string connectionString) 
+            : base(connectionString)
+        {
+        }
 
     }
 }

@@ -15,6 +15,8 @@ namespace UserStore.DAL.Repositories
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
         private IClientManager clientManager;
+        private EventRepository eventRepository;
+        private ReportRepository reportRepository;
 
         public IdentityUnitOfWork(string connectionString)
         {
@@ -36,17 +38,32 @@ namespace UserStore.DAL.Repositories
         {
             get { return roleManager; }
         }
+
+        public IRepository<Event> Events
+        {
+            get
+            {
+                if (eventRepository == null)
+                    eventRepository = new EventRepository(db);
+                return eventRepository;
+            }
+        }
+
+        public IRepository<Report> Reports
+        {
+            get
+            {
+                if (reportRepository == null)
+                    reportRepository = new ReportRepository(db);
+                return reportRepository;
+            }
+        }
+
         public async Task SaveAsync()
         {
             await db.SaveChangesAsync();
         }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
         private bool disposed = false;
-
         public virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
@@ -56,9 +73,15 @@ namespace UserStore.DAL.Repositories
                     userManager.Dispose();
                     roleManager.Dispose();
                     clientManager.Dispose();
+                    db.Dispose();
                 }
                 this.disposed = true;
             }
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
