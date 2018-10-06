@@ -10,6 +10,10 @@ namespace UserStore.BLL.Interfaces
     public interface IUserService : IDisposable
     {
         Task<OperationDetails> Create(UserDTO userDTO);
+        void Delete(int id);
+        void Update(UserDTO userDTO);
+        UserDTO GetUser(int id);
+
         IEnumerable<UserDTO> GetUsers();
         Task<ClaimsIdentity> Authenticate(UserDTO userDTO);
         Task SetInitialData(UserDTO adminDTO, List<string> roles);

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System;
 using System.Collections.Generic;
 using UserStore.BLL.DTO;
 using UserStore.BLL.Infrastructure;
@@ -101,6 +100,11 @@ namespace UserStore.BLL.Services
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Event, EventDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<Event>, List<EventDTO>>(Database.Events.GetAll());
+        }
+
+        public void Update(EventDTO eventDTO)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

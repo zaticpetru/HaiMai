@@ -9,6 +9,7 @@ namespace UserStore.BLL.Interfaces
         void MakeEvent(EventDTO eventDTO);
         EventDTO GetEvent(int? id);
         UserDTO GetAdmin(int? EventId);
+        void Update(EventDTO eventDTO);
         IEnumerable<EventDTO> GetEvents();
         IEnumerable<UserDTO> GetModerators(int? EventId);
         IEnumerable<ReportDTO> GetReports(int? EventId);

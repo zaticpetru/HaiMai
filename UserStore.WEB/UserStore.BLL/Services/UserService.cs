@@ -93,5 +93,24 @@ namespace UserStore.BLL.Services
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, UserDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserDTO>>(users);
         }
+
+        public void Delete(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Update(UserDTO userDTO)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UserDTO GetUser(int id)
+        {
+
+            return new UserDTO
+            {
+
+            };
+        }
     }
 }

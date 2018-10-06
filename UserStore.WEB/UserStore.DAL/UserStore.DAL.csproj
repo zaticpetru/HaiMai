@@ -58,7 +58,6 @@
     <Compile Include="EF\ContextInit.cs" />
     <Compile Include="Entities\ApplicationRole.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
-    <Compile Include="Entities\ApplicationUserRole.cs" />
     <Compile Include="Entities\ClientProfile.cs" />
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\Report.cs" />
