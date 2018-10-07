@@ -57,7 +57,7 @@ namespace UserStore.WEB.Controllers
         [HttpPost]
         public ActionResult Edit(EventModel model)
         {
-            eventService.Update(model);
+            //eventService.Update(model);
             return View();
         } 
     }
