@@ -16,6 +16,7 @@
 @section scripts {
 
     <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
     <script src="~/signalr/hubs"></script>
 
     <script type="text/javascript">
@@ -52,11 +53,11 @@
 
             $.post('@(Url.Action("IndexPartial", "Products", null, Request.Url.Scheme))')
                 .done(function (response) {
-                    $("#tbProducts").html(response);
+                    $("#tbProducts").html(response)
                     if (!signalRHubInitialized)
                         InitializeSignalRHubStore();
                 });
-        }
+        };
     </script>
 }
 

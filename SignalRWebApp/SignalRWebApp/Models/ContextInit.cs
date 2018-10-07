@@ -9,7 +9,6 @@ namespace SignalRWebApp.Models
             {
                 db.SaveChanges();
             }
-
         }
     }
 }

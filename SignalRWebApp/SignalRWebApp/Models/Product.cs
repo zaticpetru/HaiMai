@@ -13,17 +13,14 @@ namespace SignalRWebApp.Models
         public Int32 ProductID { get; set; }
 
         [DataMember]
-        [Required]
         [Display(Name = "Name")]
         public String Name { get; set; }
 
         [DataMember]
-        [Required]
         [Display(Name = "Unit Price")]
         public Decimal UnitPrice { get; set; }
 
         [DataMember]
-        [Required]
         [Display(Name = "Quantity")]
         public Decimal Quantity { get; set; }
     }
