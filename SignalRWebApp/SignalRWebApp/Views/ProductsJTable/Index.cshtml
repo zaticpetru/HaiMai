@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<link href="http://www.codeproject.com/Scripts/jtable/themes/metro/blue/jtable.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="http://www.codeproject.com/Scripts/jtable/jquery.jtable.js">
+</script>
+
+<div id="ProductTable" style="width: 580px; margin: auto;"></div>
+
+@section Styles{
+    @Styles.Render("~/Content/jTable");
+    <link href="~/Scripts/jtable/themes/metro/darkgray/jtable.min.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/product-grid")    
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script src="~/Scripts/jtable/jquery.jtable.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //Prepare jtable plugin
+        $('#ProductTable').jtable({
+            title: 'The Product List',
+            actions: {
+                listAction: '/ProductsJTable/ProductList',
+                deleteAction: '/ProductsJTable/DeleteProduct',
+                updateAction: '/ProductsJTable/UpdateProduct',
+                createAction: '/ProductsJTable/CreateProduct'
+            },
+            fields: {
+                ProductID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Name: {
+                    title: 'Name'
+                },
+                UnitPrice: {
+                    title: 'Unit Price',
+                    type: 'decimal'
+                },
+                Quantity: {
+                    title: 'Quantity',
+                    type: 'decimal'
+                }
+            }
+        });
+
+        //Load person list from server
+        $('#ProductTable').jtable('load');
+    });
+
+</script>
