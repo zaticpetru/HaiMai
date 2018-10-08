@@ -40,6 +40,9 @@
         </div>
 
         <div class="form-group">
+            @*@Html.HiddenFor(model => model.UserName, this.User.Identity.Name)*@
+            <p>@this.User.Identity.Name</p>
+            <input type="hidden" value="@this.User.Identity.Name" name="UserName"/>
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

@@ -1,4 +1,5 @@
-﻿using SignalRWebApp.Models;
+﻿using Microsoft.AspNet.Identity;
+using SignalRWebApp.Models;
 using SignalRWebApp.SqlServerNotifier;
 using System.Data;
 using System.Data.Entity;
@@ -33,12 +34,14 @@ namespace SignalRWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include ="Name, UnitPrice, Quantity")]Product product)
+        [Authorize]
+        public ActionResult Create([Bind(Include ="Name, UnitPrice, Quantity, UserName")]Product product)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && this.User.Identity.Name == product.UserName)
                 {
+                    product.UserId = User.Identity.GetUserId();
                     db.Products.Add(product);
                     db.SaveChanges();
                     ViewBag.Succes = "Product " + product.Name + " succeseful added";
@@ -66,6 +69,7 @@ namespace SignalRWebApp.Controllers
             return View(product);
         }
         [HttpGet]
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +86,7 @@ namespace SignalRWebApp.Controllers
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult EditPost(int? id)
         {
             if(id == null)
@@ -90,7 +95,7 @@ namespace SignalRWebApp.Controllers
             }
             var productToUpdate = db.Products.Find(id);
             if(TryUpdateModel(productToUpdate,"",
-                new string[] { "Name", "UnitPrice", "Quantity" }))
+                new string[] { "Name", "UnitPrice", "Quantity", "UserName" }))
             {
                 try
                 {
@@ -105,6 +110,7 @@ namespace SignalRWebApp.Controllers
             return View(productToUpdate);
         }
        // [HttpDelete]
+       [Authorize]
         public ActionResult Delete(int? id, bool? saveChangesError=false)
         {
             if(id == null)
@@ -124,6 +130,7 @@ namespace SignalRWebApp.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             try

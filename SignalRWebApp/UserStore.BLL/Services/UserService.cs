@@ -82,16 +82,21 @@ namespace UserStore.BLL.Services
             Database.Dispose();
         }
 
-        public IEnumerable<UserDTO> GetUsers()
+        public List<SimpleUserDTO> GetUsers()
         {
-            var users = Database.UserManager.Users
-                .Include(x => x.ClientProfile)
-                .Include(x => x.Roles);
+            var users = Database.UserManager.Users;
+            // .Include(x => x.ClientProfile)
+            //  .Include(x => x.Roles);
 
-            var test = users.FirstOrDefault();
-            
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, UserDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserDTO>>(users);
+            //var test = users.FirstOrDefault();
+            var test = new List<SimpleUserDTO>();
+            foreach(var User in users)
+            {
+                test.Add(new SimpleUserDTO { Id = User.Id, UserName = User.UserName});
+            }
+            return test;
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, IUser>()).CreateMapper();
+            //return mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<IUser>>(users);
         }
 
         public void Delete(int id)

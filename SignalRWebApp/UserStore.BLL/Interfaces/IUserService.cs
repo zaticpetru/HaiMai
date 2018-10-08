@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace UserStore.BLL.Interfaces
         void Update(UserDTO userDTO);
         UserDTO GetUser(int id);
 
-        IEnumerable<UserDTO> GetUsers();
+        List<SimpleUserDTO> GetUsers();
         Task<ClaimsIdentity> Authenticate(UserDTO userDTO);
         Task SetInitialData(UserDTO adminDTO, List<string> roles);
     }

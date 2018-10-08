@@ -22,14 +22,19 @@ namespace SignalRWebApp.Models
         #region Collections Definitions
 
         public DbSet<Product> Products { get; set; }
-        
+
         #endregion
+
+        static SignaRTestContext()
+        {
+            Database.SetInitializer(new ContextInit());
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>()
                         .ToTable("Products", "dbo")
                         .HasKey(t => t.ProductID);
-        } 
+        }
     }
 }

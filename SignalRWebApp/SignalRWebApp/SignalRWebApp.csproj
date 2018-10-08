@@ -154,21 +154,27 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\DrawController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductsJTableController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="Hubs\DrawHub.cs" />
     <Compile Include="Hubs\ProductHub.cs" />
     <Compile Include="Models\ContextInit.cs" />
     <Compile Include="Models\DbContextExtensions.cs" />
+    <Compile Include="Models\Draw.cs" />
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ObjectQueryExtensions.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SignaRTestContext.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerNotifier\NotifierEntity.cs" />
     <Compile Include="SqlServerNotifier\NotifierEntityExtentions.cs" />
@@ -373,6 +379,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\util.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -416,6 +423,8 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\SuccesRegister.cshtml" />
+    <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Draw\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

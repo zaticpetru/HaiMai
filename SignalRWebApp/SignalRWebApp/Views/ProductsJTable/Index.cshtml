@@ -30,6 +30,8 @@
 
         //Prepare jtable plugin
         $('#ProductTable').jtable({
+            paging: true,
+            pageSize: 10,
             title: 'The Product List',
             actions: {
                 listAction: '/ProductsJTable/ProductList',
@@ -54,6 +56,11 @@
                 Quantity: {
                     title: 'Quantity',
                     type: 'decimal'
+                },
+                UserName: {
+                    title: 'User Name',
+                    create: false,
+                    edit: false
                 }
             }
         });

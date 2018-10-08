@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Draw</title>
+    <style>
+        canvas {
+            position: relative;
+            background-color: #8ce493;
+        }
+    </style>
+</head>
+<body>
+    @Html.ActionLink("Back", "Index", "Home")
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+        @: <h1>Please log in before using Draw</h1>
+        @Html.ActionLink("Login", "Login", "Account")
+    }
+    else
+    {
+        <canvas id="drawingpad" width="400" height="300"></canvas>
+    }
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
+    <script src="/signalr/hubs"></script>
+
+    <script>
+        $(function () {
+
+            var drawGame = {
+                isDrawing: false,
+                startX: 0,
+                startY: 0
+            };
+
+            var data = {
+                startX: 0,
+                startY: 0,
+                endX: 0,
+                endY: 0
+            };
+
+            var canvas = document.getElementById('drawingpad');
+            var ctx = canvas.getContext('2d');
+
+            var chat = $.connection.drawHub;
+            chat.client.addLine = function (data) {
+                drawLine(ctx, data.startX, data.startY, data.endX, data.endY, 1);
+            };
+
+            $.connection.hub.start().done(function () {
+                canvas.addEventListener("mousedown", mousedown, false);
+                canvas.addEventListener("mousemove", mousemove, false);
+                canvas.addEventListener("mouseup", mouseup, false);
+            });
+
+            function drawLine(ctx, x1, y1, x2, y2, thickness) {
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.lineWidth = thickness;
+                ctx.strokeStyle = "#444";
+                ctx.stroke();
+            }
+
+            function mousedown(e) {
+                var mouseX = e.layerX || 0;
+                var mouseY = e.layerY || 0;
+                drawGame.startX = mouseX;
+                drawGame.startY = mouseY;
+                drawGame.isDrawing = true;
+            };
+
+            function mousemove(e) {
+                if (drawGame.isDrawing) {
+                    var mouseX = e.layerX || 0;
+                    var mouseY = e.layerY || 0; // vooshe hz nah trei de egal
+                    if (!(mouseX === drawGame.startX && mouseY === drawGame.startY)) {
+                        drawLine(ctx, drawGame.startX, drawGame.startY, mouseX, mouseY, 1);
+
+                        data.startX = drawGame.startX;
+                        data.startY = drawGame.startY;
+                        data.endX = mouseX;
+                        data.endY = mouseY;
+                        chat.server.send(data);
+
+                        drawGame.startX = mouseX;
+                        drawGame.startY = mouseY;
+                    }
+                }
+            }
+
+            function mouseup(e) {
+                drawGame.isDrawing = false;
+            }
+        });
+    </script>
+</body>
+</html>

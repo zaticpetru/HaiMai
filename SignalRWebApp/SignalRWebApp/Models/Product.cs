@@ -23,5 +23,10 @@ namespace SignalRWebApp.Models
         [DataMember]
         [Display(Name = "Quantity")]
         public Decimal Quantity { get; set; }
+        
+        [DataMember]
+        public string UserName { get; set; }
+        [DataMember]
+        public string UserId { get; set; }
     }
 }

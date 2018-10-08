@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "Chat";
+}
+
+<h2>Chat</h2>
+
+@Html.ActionLink("Back", "Index", "Home")
+
+
+@if (!User.Identity.IsAuthenticated)
+{
+    @: <h1>Please log in before using chat</h1>
+    @Html.ActionLink("Login", "Login", "Account")
+}
+else
+{
+
+    <div class="main">
+        <div id="loginBlock">
+            <input id="txtUserName" type="text" value="@User.Identity.Name" />
+            <input id="btnLogin" type="button" value="Войти" />
+        </div>
+        <div id="chatBody">
+            <div id="header"></div>
+            <div id="inputForm">
+                <input type="text" id="message" />
+                <input type="button" id="sendmessage" value="Send" />
+            </div>
+            <div id="chatroom"></div>
+
+            <div id="chatusers">
+                <p><b>All users</b></p>
+            </div>
+        </div>
+        <input id="hdId" type="hidden" />
+        <input id="username" type="hidden" />
+    </div>
+
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    @*<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>*@
+    <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
+
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/util.js"></script>
+
+}
+

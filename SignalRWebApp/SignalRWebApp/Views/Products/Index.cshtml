@@ -5,10 +5,12 @@
 }
 
 <h2>Index</h2>
-
-<p>
+@if (this.User.Identity.IsAuthenticated) {
+    <p>
     @Html.ActionLink("Create New", "Create")
-</p>
+    </p>
+}
+
 <div id="tbProducts">
     @Html.Partial("IndexPartial", Model)
 </div>
