@@ -81,7 +81,7 @@
             function mousemove(e) {
                 if (drawGame.isDrawing) {
                     var mouseX = e.layerX || 0;
-                    var mouseY = e.layerY || 0; // vooshe hz nah trei de egal
+                    var mouseY = e.layerY || 0; 
                     if (!(mouseX === drawGame.startX && mouseY === drawGame.startY)) {
                         drawLine(ctx, drawGame.startX, drawGame.startY, mouseX, mouseY, 1);
 

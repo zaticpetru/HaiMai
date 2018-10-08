@@ -9,7 +9,7 @@ namespace UserStore.DAL.EF
         public DbSet<ClientProfile> ClientProfiles { get; set; }
         static ApplicationContext()
         {
-            Database.SetInitializer<ApplicationContext>(new ContextInit());
+            Database.SetInitializer(new ContextInit());
         }
         public ApplicationContext(string connectionString) 
             : base(connectionString)

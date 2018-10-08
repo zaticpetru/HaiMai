@@ -6,8 +6,6 @@ namespace SignalRWebApp.Models
     public class SignaRTestContext : DbContext
     {
         const String DefaultConnectionName = "SignaRTestConnection";
-
-        #region "ctor"
         
         public SignaRTestContext() : this(DefaultConnectionName)
         {
@@ -16,9 +14,7 @@ namespace SignalRWebApp.Models
         public SignaRTestContext(String sqlConnectionName) : base(String.Format("Name={0}", sqlConnectionName))
         {
         }
-        
-        #endregion
-        
+
         #region Collections Definitions
 
         public DbSet<Product> Products { get; set; }

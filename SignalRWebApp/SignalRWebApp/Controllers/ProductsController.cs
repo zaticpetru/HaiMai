@@ -109,7 +109,6 @@ namespace SignalRWebApp.Controllers
             }
             return View(productToUpdate);
         }
-       // [HttpDelete]
        [Authorize]
         public ActionResult Delete(int? id, bool? saveChangesError=false)
         {

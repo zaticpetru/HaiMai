@@ -111,11 +111,7 @@ namespace UserStore.BLL.Services
 
         public UserDTO GetUser(int id)
         {
-
-            return new UserDTO
-            {
-
-            };
+            throw new System.NotImplementedException();
         }
     }
 }

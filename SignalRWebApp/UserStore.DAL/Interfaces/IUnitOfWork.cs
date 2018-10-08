@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using UserStore.DAL.Entities;
 using UserStore.DAL.Identity;
 
 namespace UserStore.DAL.Interfaces

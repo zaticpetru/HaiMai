@@ -21,6 +21,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Products", "Index", "Products")</li>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li>@Html.ActionLink("Jtable", "Index", "ProductsJTable")</li>
+                    }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (!User.Identity.IsAuthenticated)

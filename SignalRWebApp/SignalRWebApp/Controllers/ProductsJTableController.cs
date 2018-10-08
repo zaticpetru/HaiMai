@@ -1,21 +1,16 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity.Owin;
 using SignalRWebApp.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using UserStore.BLL.DTO;
 using UserStore.BLL.Interfaces;
-using UserStore.BLL.Services;
 
 namespace SignalRWebApp.Controllers
 {
     [Authorize(Roles = "admin")]
     public class ProductsJTableController : Controller
     {
-        // GET: ProductsJTable
         private SignaRTestContext db = new SignaRTestContext();
         public ActionResult Index()
         {
